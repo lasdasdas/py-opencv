@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 from matplotlib import pyplot as plt
-img = cv2.imread('../chess.jpg')
+img = cv2.imread('../park.jpg')
 # smoothing
 kernel = np.ones((3,3),np.float32)/9
 img = cv2.filter2D(img,-1,kernel)
