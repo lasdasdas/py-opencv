@@ -8,7 +8,7 @@ import cv2
 d2r= math.pi/180
 
 
-img = cv2.imread('../moon.jpg')
+img = cv2.imread('../chess.jpg')
 
 # smoothing
 kernel = np.ones((3,3),np.float32)/9
