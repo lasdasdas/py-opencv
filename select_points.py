@@ -49,7 +49,7 @@ class CorrespondencePoints( ):
         #Determine the second image
         elif self.iterator == 1:
             self.imgaxis2 = click.inaxes
-            print("Input the corresponding point "+str(len(self.correspondence1))+" on img 1 " )
+            print("Input the corresponding point "+str(len(self.correspondence1)+1)+" on img 1 " )
 
         #1st image correspondence points
         elif len(self.correspondence1) == len (self.correspondence2):
@@ -68,7 +68,8 @@ class CorrespondencePoints( ):
                 print("Wrong image!")
                 return
             self.correspondence2.append(self.point)
-            print("Input the corresponding point "+str(len(self.correspondence2)+1)+" on img 1 " )
+            if not (self.iterator)/2 > self.corresponding_points:
+                print("Input the corresponding point "+str(len(self.correspondence2)+1)+" on img 1 " )
             self.ax2.clear()
             self.ax2 = self.fig.add_subplot(122)
             self.img2  = cv2.circle(self.img2,(int(click.xdata) , int(click.ydata)), 5,  self.color, -1)
@@ -79,7 +80,7 @@ class CorrespondencePoints( ):
         self.iterator=self.iterator+1
         self.fig.canvas.draw()
         #If reached, close the canvas and finish the funcion
-        if (self.iterator-3)/2 > self.corresponding_points:
+        if (self.iterator-1)/2 > self.corresponding_points:
             self.close = True
             plt.close()
 
