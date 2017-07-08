@@ -1,7 +1,8 @@
 import cv2
 import matplotlib.pyplot as plt
 import time
-
+import numpy
+import random
 class CorrespondencePoints( ):
     def __init__(self , path1 , path2 , points):
 
@@ -15,7 +16,7 @@ class CorrespondencePoints( ):
         self.correspondence1 = [] #Correspondence vector in img1
         self.correspondence2 = [] #Correspondence vector in img2
         self.fig = plt.figure()
-
+        self.color =  (random.randrange(256),random.randrange(256),random.randrange(256))
     def getCoord(self):
         #Show the images
         self.ax1 = self.fig.add_subplot(121)
@@ -39,7 +40,7 @@ class CorrespondencePoints( ):
         self.point = (click.xdata,click.ydata)
         #Clicked outside
         if click.inaxes == None:
-            print("What you clicked was not an image)
+            print("What you clicked was not an image")
             return self.point
         #Determine the first img
         elif self.iterator == 0:
@@ -59,7 +60,7 @@ class CorrespondencePoints( ):
             print("Input the corresponding point "+str(len(self.correspondence1))+" on img 2 " )
             self.ax1 = self.fig.add_subplot(121)
             self.ax1.clear()
-            self.img1  = cv2.circle(self.img1,(int(click.xdata) , int(click.ydata)), 20, (0,0,255), -1)
+            self.img1  = cv2.circle(self.img1,(int(click.xdata) , int(click.ydata)), 5, self.color, -1)
             plt.imshow(self.img1 )
         #2nd image correspondence points
         elif len(self.correspondence1) != len (self.correspondence2):
@@ -70,7 +71,9 @@ class CorrespondencePoints( ):
             print("Input the corresponding point "+str(len(self.correspondence2)+1)+" on img 1 " )
             self.ax2.clear()
             self.ax2 = self.fig.add_subplot(122)
-            self.img2  = cv2.circle(self.img2,(int(click.xdata) , int(click.ydata)), 20, (0,0,255), -1)
+            self.img2  = cv2.circle(self.img2,(int(click.xdata) , int(click.ydata)), 5,  self.color, -1)
+            self.color =  (random.randrange(256),random.randrange(256),random.randrange(256)) #Change the color
+
             plt.imshow(self.img2)
         #Iterating till the desired points are reached
         self.iterator=self.iterator+1
@@ -81,6 +84,9 @@ class CorrespondencePoints( ):
             self.close = True
             plt.close()
 
-
-rep = CorrespondencePoints('../../block-2/chess.jpg' , '../../block-2/chess.jpg' , 4)
-rep.getCoord()
+#Usage
+if __name__ == '__main__':
+    rep = CorrespondencePoints('/block-2/chess.jpg' , '../../block-2/chess.jpg' , 4)
+    rep.getCoord()
+    print(rep.correspondence1)
+    print(rep.correspondence2)
