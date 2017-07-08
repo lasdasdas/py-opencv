@@ -6,8 +6,13 @@ import random
 class CorrespondencePoints( ):
     def __init__(self , path1 , path2 , points):
 
-        self.img1 = cv2.imread(path1)
-        self.img2 = cv2.imread(path2)
+        #Read the originals in rgb
+        self.img1 = cv2.cvtColor(cv2.imread(path1), cv2.COLOR_BGR2RGB)
+        self.img2 = cv2.cvtColor(cv2.imread(path2), cv2.COLOR_BGR2RGB)
+        #Make a copy to "mark the dots"
+        self.img1_copy = self.img1.copy()
+        self.img2_copy = self.img2.copy()
+
         self.corresponding_points = points
         self.iterator = 0
 
@@ -19,6 +24,7 @@ class CorrespondencePoints( ):
         self.color =  (random.randrange(256),random.randrange(256),random.randrange(256))
     def getCoord(self):
         #Show the images
+
         self.ax1 = self.fig.add_subplot(121)
         plt.imshow(self.img1)
 
@@ -60,8 +66,9 @@ class CorrespondencePoints( ):
             print("Input the corresponding point "+str(len(self.correspondence1))+" on img 2 " )
             self.ax1 = self.fig.add_subplot(121)
             self.ax1.clear()
-            self.img1  = cv2.circle(self.img1,(int(click.xdata) , int(click.ydata)), 5, self.color, -1)
-            plt.imshow(self.img1 )
+            # The radius of the circle is 5/1000 of the width
+            self.img1_copy  = cv2.circle(self.img1_copy,(int(click.xdata) , int(click.ydata)), int(5*self.img2_copy.shape[0]/1000), self.color, -1)
+            plt.imshow(self.img1_copy )
         #2nd image correspondence points
         elif len(self.correspondence1) != len (self.correspondence2):
             if click.inaxes != self.imgaxis2:
@@ -72,10 +79,10 @@ class CorrespondencePoints( ):
                 print("Input the corresponding point "+str(len(self.correspondence2)+1)+" on img 1 " )
             self.ax2.clear()
             self.ax2 = self.fig.add_subplot(122)
-            self.img2  = cv2.circle(self.img2,(int(click.xdata) , int(click.ydata)), 5,  self.color, -1)
+            self.img2_copy  = cv2.circle(self.img2_copy,(int(click.xdata) , int(click.ydata)), int(5*self.img2_copy.shape[0]/1000),  self.color, -1)
             self.color =  (random.randrange(256),random.randrange(256),random.randrange(256)) #Change the color
 
-            plt.imshow(self.img2)
+            plt.imshow(self.img2_copy)
         #Iterating till the desired points are reached
         self.iterator=self.iterator+1
         self.fig.canvas.draw()
