@@ -80,7 +80,6 @@ class CorrespondencePoints( ):
         self.fig.canvas.draw()
         #If reached, close the canvas and finish the funcion
         if (self.iterator-3)/2 > self.corresponding_points:
-            print("finished correspondence points ")
             self.close = True
             plt.close()
 
