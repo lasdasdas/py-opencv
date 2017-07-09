@@ -24,5 +24,5 @@ img_project = cv2.warpPerspective(rep.img1  , h, (rep.img2.shape[1],rep.img2.sha
 # Display images
 plt.subplot(221),plt.imshow(rep.img1),plt.title('Image 1 '),plt.xticks([]), plt.yticks([])
 plt.subplot(222),plt.imshow(rep.img2),plt.title('Image2'),plt.xticks([]), plt.yticks([])
-plt.subplot(223),plt.imshow(img_project),plt.title('Image 1 projected into image 2'),plt.xticks([]), plt.yticks([])
+plt.subplot(223),plt.imshow(img_project),plt.title('Image 1 projected as image 2'),plt.xticks([]), plt.yticks([])
 plt.show()
