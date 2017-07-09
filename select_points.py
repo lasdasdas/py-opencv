@@ -93,7 +93,7 @@ class CorrespondencePoints( ):
 
 #Usage
 if __name__ == '__main__':
-    rep = CorrespondencePoints('/block-2/chess.jpg' , '../../block-2/chess.jpg' , 4)
+    rep = CorrespondencePoints('block-2/chess.jpg' , 'block-2/chess.jpg' , 4)
     rep.getCoord()
     print(rep.correspondence1)
-    print(rep.correspondence2)
+print(rep.correspondence2)
